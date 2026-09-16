@@ -1,0 +1,1022 @@
+This is a list of problem designed to help master the concepts learned this year in computer science major, Object Orientaed Progamming. Those are the roblems that I had no time to complete as the year war ending. Now I wish to learn how to solve them. The syntax should be taught accordingly.
+
+Question 48: The Safe Number Conversion
+Description
+In this problem, you will practice the most basic and safest use of static_cast in C++. You are given three values: an integer, a floating-point number, and a character. Your task is to perform three explicit conversions and print the results.
+
+You must use static_cast in your program to complete the conversions. The purpose of this problem is to help you understand that static_cast is commonly used when the source type and target type are already known at compile time. It does not perform runtime type checking, but it makes the programmer's intention clear.
+
+The three required conversions are listed below. First, convert the given floating-point number into an integer. Second, convert the given integer into a double. Third, convert the given character into its ASCII integer code.
+
+When converting from double to int, the fractional part will be discarded. When printing the converted double value, print it with exactly two digits after the decimal point.
+
+本題要你練習 C++ 中 static_cast 最基本也最直觀的使用方式。輸入會提供三個值：一個整數、一個浮點數，以及一個字元。你的任務是完成三個明確的型別轉換，並依指定格式輸出結果。
+
+你的程式必須使用 static_cast 來完成這些轉換。這題的目的，是讓你理解 static_cast 常用在編譯期就已知來源型別與目標型別的情況。它不會進行執行期型別檢查，但可以讓程式的轉型意圖更清楚。
+
+本題要求的三個轉換如下：第一，將輸入的浮點數轉成整數。第二，將輸入的整數轉成 double。第三，將輸入的字元轉成其 ASCII 整數代碼。
+
+從 double 轉成 int 時，小數部分會被直接捨去。輸出轉換後的 double 時，必須固定顯示到小數點後兩位。
+
+
+Input
+The input contains one line with three values: an integer a, a double b, and a character c.
+
+輸入只有一行，包含三個值：整數 a、浮點數 b、以及字元 c。
+
+
+Output
+Print three lines in the following format:
+
+From double to int: X
+
+From int to double: Y
+
+ASCII of char: Z
+
+The value Y must be printed with exactly two digits after the decimal point.
+
+請輸出三行，格式如下：
+
+From double to int: X
+
+From int to double: Y
+
+ASCII of char: Z
+
+其中 Y 必須固定輸出到小數點後兩位。
+
+
+Sample Input 1 
+7 3.9 A
+Sample Output 1
+From double to int: 3
+From int to double: 7.00
+ASCII of char: 65
+Sample Input 2 
+-2 -8.75 z
+Sample Output 2
+From double to int: -8
+From int to double: -2.00
+ASCII of char: 122
+Hint
+You are expected to use static_cast(b), static_cast(a), and static_cast(c).
+
+你可以使用 static_cast(b)、static_cast(a)、以及 static_cast(c)。
+
+Use fixed and setprecision(2) when printing the converted double value.
+
+輸出轉換後的 double 時，可搭配 fixed 與 setprecision(2)。
+
+--------------------
+Question 49: The Student Ticket Downcast
+Description
+In this problem, you will practice static_cast in an inheritance setting. A student ticket is a special kind of ticket. The base class Ticket stores the ticket holder's name and the original ticket price. The derived class StudentTicket adds a discount percentage.
+
+You are required to design the program so that a StudentTicket object is first treated as a Ticket pointer. After that, you should use static_cast to convert the base pointer back to a StudentTicket pointer and obtain the discount information.
+
+The input guarantees that the object is really a StudentTicket object. Therefore, the downcast in this problem is safe by the problem design. The purpose of the problem is to let you observe that static_cast can perform downcasting in an inheritance hierarchy, but the programmer must already know that the real object type is correct.
+
+After conversion, compute the final discounted price by using this formula: finalPrice = price × (100 - discount) / 100.
+
+本題要你練習 static_cast 在繼承架構中的使用方式。學生票是一種特殊的票券。基底類別 Ticket 負責保存持有者姓名與原始票價，衍生類別 StudentTicket 則額外保存折扣百分比。
+
+你必須設計程式，使一個 StudentTicket 物件先被當成 Ticket 指標來使用，之後再透過 static_cast 將這個基底類別指標轉回 StudentTicket 指標，並取得折扣資訊。
+
+題目保證這個物件的真實型別確實就是 StudentTicket，因此本題中的 downcast 在題目設定下是安全的。這題的目的是讓你觀察：static_cast 確實可以在繼承架構中做 downcasting，但前提是程式設計者已經知道真實型別正確無誤。
+
+轉型後，請依下列公式計算折扣後票價：finalPrice = price × (100 - discount) / 100。
+
+
+Input
+The input contains one line with a name, a ticket price, and a discount percentage.
+
+輸入只有一行，依序為姓名、原始票價、以及折扣百分比。
+
+
+Output
+Print three lines in the following format:
+
+Name: name
+
+Original price: P
+
+Discounted price: D
+
+Both prices must be printed with exactly two digits after the decimal point.
+
+請輸出三行，格式如下：
+
+Name: name
+
+Original price: P
+
+Discounted price: D
+
+兩個價格都必須固定輸出到小數點後兩位。
+
+
+Sample Input 1 
+Alice 120 25
+Sample Output 1
+Name: Alice
+Original price: 120.00
+Discounted price: 90.00
+Sample Input 2 
+Bob 300 50
+Sample Output 2
+Name: Bob
+Original price: 300.00
+Discounted price: 150.00
+Hint
+You should create a StudentTicket object, store it in a Ticket pointer, and then use static_cast(ptr).
+
+你應先建立 StudentTicket 物件，再以 Ticket 指標儲存它，最後使用 static_cast(ptr)。
+
+------
+Question 50: The Real Type Checker
+Description
+In this problem, you will practice safe downcasting with dynamic_cast. A school system stores different people through base-class pointers. Every object is stored as a Person pointer, but the real object may be either a Student or a Teacher.
+
+You must design a polymorphic base class Person and at least two derived classes: Student and Teacher. Because the program needs to identify the real runtime type of each object, the base class must be polymorphic, which means it should contain at least one virtual function.
+
+After creating all objects, your program must examine each Person pointer and use dynamic_cast to determine whether it actually points to a Student object or a Teacher object. Then print the corresponding information in the original input order.
+
+The purpose of this problem is to show why dynamic_cast is useful. Unlike static_cast, dynamic_cast performs a runtime type check. When a cast to a pointer type fails, it returns nullptr.
+
+本題要你練習使用 dynamic_cast 進行安全的 downcasting。學校系統會用基底類別指標來儲存不同人物。雖然所有物件都先以 Person 指標形式保存，但它們的真實型別可能是 Student，也可能是 Teacher。
+
+你必須設計一個具多型性的基底類別 Person，以及至少兩個衍生類別 Student 與 Teacher。由於程式需要辨識每個物件在執行期的真實型別，因此基底類別必須是 polymorphic，也就是至少要有一個 virtual function。
+
+建立所有物件之後，你的程式必須逐一檢查每個 Person 指標，並使用 dynamic_cast 判斷它實際上是否指向 Student 或 Teacher 物件，再依輸入順序輸出對應資訊。
+
+這題的目的，是讓你觀察 dynamic_cast 的用途。和 static_cast 不同，dynamic_cast 會在執行期檢查實際型別。當轉型成指標型別失敗時，它會回傳 nullptr。
+
+
+Input
+The first line contains an integer n, the number of people.
+
+Each of the next n lines begins with a type code.
+
+If the type code is S, the line format is: S name score
+
+If the type code is T, the line format is: T name years
+
+第一行輸入一個整數 n，表示人物數量。
+
+接下來 n 行，每行先輸入一個型別代號。
+
+若型別代號為 S，格式為：S name score
+
+若型別代號為 T，格式為：T name years
+
+
+Output
+For each person, print one line in one of the following formats:
+
+Student name score
+
+Teacher name years
+
+After that, print two more lines:
+
+Students: X
+
+Teachers: Y
+
+對於每個人物，請輸出一行，格式如下之一：
+
+Student name score
+
+Teacher name years
+
+接著再輸出兩行：
+
+Students: X
+
+Teachers: Y
+
+
+Sample Input 1 
+3
+S Alice 90
+T Bob 12
+S Carol 85
+Sample Output 1
+Student Alice 90
+Teacher Bob 12
+Student Carol 85
+Students: 2
+Teachers: 1
+Sample Input 2 
+2
+T Henry 20
+T Iris 8
+Sample Output 2
+Teacher Henry 20
+Teacher Iris 8
+Students: 0
+Teachers: 2
+------
+
+Question 51: The School Role Console
+Description
+In this problem, you will compare the roles of static_cast and dynamic_cast in one scene. A school management system stores different members through a base-class pointer. Each member is either a Student or a Teacher.
+
+Every record contains a floating-point value. For a Student, the value represents an exam score. For a Teacher, the value represents a monthly salary. Your program must identify the real runtime type of each object by using dynamic_cast.
+
+After identifying the real type, you must use static_cast to convert the floating-point value into an integer summary. For a Student, output the truncated integer score. For a Teacher, output the truncated integer salary.
+
+This problem is designed to help you distinguish two different purposes. dynamic_cast is used to safely determine the real type in an inheritance hierarchy at runtime. static_cast is used for an explicit ordinary type conversion whose source and target types are already known.
+
+本題要你在同一個場景中比較 static_cast 與 dynamic_cast 的用途。學校管理系統會以基底類別指標儲存不同成員。每個成員不是 Student，就是 Teacher。
+
+每筆資料都包含一個浮點數值。對 Student 而言，這個值代表考試分數；對 Teacher 而言，這個值代表月薪。你的程式必須使用 dynamic_cast 來辨識每個物件在執行期的真實型別。
+
+在辨識出真實型別後，你還必須使用 static_cast 將該浮點數值轉成整數摘要。若是 Student，就輸出被截去小數部分後的整數分數；若是 Teacher，就輸出被截去小數部分後的整數薪資。
+
+本題的設計重點，是幫助你區分兩種轉型的不同用途。dynamic_cast 用來在繼承架構中安全地判斷執行期的真實型別；static_cast 則用於來源與目標型別已知時的明確一般型別轉換。
+
+
+Input
+The first line contains an integer n.
+
+Each of the next n lines is in one of the following formats:
+
+S name score
+
+T name salary
+
+The score or salary is given as a double.
+
+第一行輸入一個整數 n。
+
+接下來 n 行，每行格式如下之一：
+
+S name score
+
+T name salary
+
+其中 score 或 salary 皆為 double。
+
+
+Output
+For each record, print one line in one of the following formats:
+
+Student name score X
+
+Teacher name salary Y
+
+where X and Y are the integer values obtained by static_cast.
+
+After all records, print:
+
+Students: A
+
+Teachers: B
+
+對每筆資料輸出一行，格式如下之一：
+
+Student name score X
+
+Teacher name salary Y
+
+其中 X 與 Y 是經過 static_cast 後得到的整數值。
+
+全部輸出完後，再輸出：
+
+Students: A
+
+Teachers: B
+
+
+Sample Input 1 
+3
+S Alice 87.9
+T Bob 42000.75
+S Carol 60.01
+Sample Output 1
+Student Alice score 87
+Teacher Bob salary 42000
+Student Carol score 60
+Students: 2
+Teachers: 1
+Sample Input 2 
+2
+T Henry 35000.99
+T Iris 28000.10
+Sample Output 2
+Teacher Henry salary 35000
+Teacher Iris salary 28000
+Students: 0
+Teachers: 2
+Hint
+Use dynamic_cast to determine whether a Member* actually points to Student or Teacher.
+
+請用 dynamic_cast 判斷 Member* 實際上是否指向 Student 或 Teacher。
+
+After that, use static_cast to convert the double value into an integer summary.
+
+接著使用 static_cast 將 double 值轉為整數摘要。
+
+--------
+
+Question 52: The Student Introduction Card
+Description
+在校園迎新系統中，每位新生都需要輸入自己的基本資料，系統再用標準輸出產生一段簡單的自我介紹。這題的目的，是讓你熟悉 C++ 的標準輸入資料流 cin 與標準輸出資料流 cout 的最基本用法。
+
+你必須讀入一位學生的姓名、年齡與主修科系，然後依照指定格式輸出一行結果。
+
+本題希望你使用 C++ 的標準輸入輸出資料流完成，不要使用其他不必要的技巧。請注意，姓名與科系都不包含空白。
+
+In a campus orientation system, each new student enters basic information, and the system prints a short self-introduction using standard output. The purpose of this problem is to help you practice the most basic use of C++ standard input stream cin and standard output stream cout.
+
+You must read one student's name, age, and major, then output exactly one line in the required format.
+
+This problem is intended to be solved using C++ standard input and output streams. You do not need any complicated technique here. Note that the name and the major contain no spaces.
+
+
+Input
+輸入一行，包含三個資料：
+name age major
+
+其中：
+name 為學生姓名
+age 為整數年齡
+major 為主修科系名稱
+
+The input contains one line with three items:
+name age major
+
+where:
+name is the student's name
+age is an integer age
+major is the name of the major
+
+
+Output
+輸出一行：
+Student name is age years old and majors in major.
+
+請依照格式輸出，包含標點符號與空白。
+
+Output one line:
+Student name is age years old and majors in major.
+
+Follow the format exactly, including punctuation and spaces.
+
+
+Sample Input 1 
+Alice 18 CS
+Sample Output 1
+Student Alice is 18 years old and majors in CS.
+Sample Input 2 
+Bob 20 Math
+Sample Output 2
+Student Bob is 20 years old and majors in Math.
+Hint
+你只需要使用 cin 讀入資料，再使用 cout 輸出即可。
+
+You only need cin for input and cout for output.
+
+--------
+
+Question 53: The Score Report Output
+Description
+在成績報表系統中，老師會輸入三次小考成績與一次實驗成績，系統必須立即輸出總分與平均分數。這題的重點是讓你熟悉使用 cin 讀取多個不同型別的資料，並用 cout 搭配格式控制輸出結果。
+
+你必須讀入三個整數與一個浮點數，計算總和與平均值。平均值請固定輸出到小數點後兩位。
+
+This score-report task asks you to read three quiz scores and one lab score, then immediately print the total and the average. The goal of this problem is to help you practice reading multiple values of different types with cin, and formatting output with cout.
+
+You must read three integers and one floating-point value, compute the total and the average, and print the average with exactly two digits after the decimal point.
+
+
+Input
+輸入一行，包含四個數值：
+q1 q2 q3 lab
+
+其中：
+q1, q2, q3 為整數
+lab 為浮點數
+
+The input contains one line with four values:
+q1 q2 q3 lab
+
+where:
+q1, q2, q3 are integers
+lab is a floating-point number
+
+
+Output
+輸出兩行：
+Total: X
+Average: Y
+
+其中：
+X 為四個分數的總和
+Y 為四個分數的平均值，固定輸出到小數點後兩位
+
+Output two lines:
+Total: X
+Average: Y
+
+where:
+X is the total of the four scores
+Y is the average of the four scores, printed with exactly two digits after the decimal point
+
+
+Sample Input 1 
+80 90 85 92.5
+Sample Output 1
+Total: 347.50
+Average: 86.88
+Sample Input 2 
+100 95 88 76.0
+Sample Output 2
+Total: 359.00
+Average: 89.75
+Hint
+若要固定輸出到小數點後兩位，可以使用：
+fixed << setprecision(2)
+
+To print exactly two digits after the decimal point, you may use:
+fixed << setprecision(2)
+
+------
+
+Question 54: The Registration Desk Form
+Description
+在學生註冊櫃台中，工作人員會先輸入學號，再輸入學生的完整姓名與完整系所名稱。由於姓名與系所都可能包含空白，本題的重點是讓你練習同時使用 operator>> 與 getline，並理解標準輸入資料流中換行符號對讀取的影響。
+
+你必須先讀入一個整數學號，接著讀入兩整行文字，分別代表學生姓名與系所名稱，最後依照指定格式輸出三行結果。
+
+At a student registration desk, the staff enters the student ID first, then the student's full name and the full department name. Since the name and the department may contain spaces, the purpose of this problem is to practice using both operator>> and getline, and to understand how newline characters affect standard input streams.
+
+You must first read one integer ID, then read two full lines representing the student's name and the department name, and finally output three lines in the required format.
+
+
+Input
+輸入共三行：
+第一行是一個整數 id
+第二行是一整行學生姓名 name
+第三行是一整行系所名稱 department
+
+The input contains three lines:
+The first line is an integer id
+The second line is the full student name
+The third line is the full department name
+
+
+Output
+輸出三行：
+ID: id
+Name: name
+Department: department
+
+請保持格式完全一致。
+
+Output three lines:
+ID: id
+Name: name
+Department: department
+
+Keep the format exactly the same.
+
+
+Sample Input 1 
+12345
+Alice Chen
+Department of Computer Science
+Sample Output 1
+ID: 12345
+Name: Alice Chen
+Department: Department of Computer Science
+Sample Input 2 
+10001
+Bob Lee
+Department of Applied Mathematics
+Sample Output 2
+ID: 10001
+Name: Bob Lee
+Department: Department of Applied Mathematics
+Hint
+當你先用 cin >> id，再想用 getline 讀下一行時，記得處理前一個輸入留下的換行符號。
+
+When you use cin >> id first and then want to read a whole line with getline, remember to handle the leftover newline character.
+
+-----
+
+Question 55: The Integer Line Parser
+Description
+在簡易資料分析系統中，所有整數都先被收集成一整行字串，之後再交給程式逐一解析。這題的重點，是讓你學會如何使用 istringstream 從一整行文字中依序讀出多個數值。
+
+你會得到一整行，裡面包含若干個以空白分隔的整數。你必須使用字串資料流將這些整數逐一讀出，並輸出它們的個數與總和。
+
+In a simple data analysis system, all integers are first collected into one whole line of text, and then the program parses them one by one. The purpose of this problem is to help you learn how to use istringstream to extract multiple values from a line.
+
+You will be given one entire line containing several integers separated by spaces. Use a string stream to read them one by one, then output the count of numbers and their total sum.
+
+
+Input
+輸入只有一行，包含若干個以空白分隔的整數。整數個數至少為 1。
+
+The input contains only one line with several integers separated by spaces. There is at least one integer.
+
+
+Output
+輸出兩行：
+Count: X
+Sum: Y
+
+其中：
+X 為該行整數個數
+Y 為該行整數總和
+
+Output two lines:
+Count: X
+Sum: Y
+
+where:
+X is the number of integers in the line
+Y is the sum of those integers
+
+
+Sample Input 1 
+1 2 3 4 5
+Sample Output 1
+Count: 5
+Sum: 15
+Sample Input 2 
+10 -2 7
+Sample Output 2
+Count: 3
+Sum: 15
+Hint
+可以先用 getline 讀進整行，再建立 istringstream 來解析。
+
+You may first read the whole line by getline, then create an istringstream to parse it.
+
+-----
+
+Question 56: The Report String Builder
+Description
+在訊息產生系統中，程式需要先把一段報告內容組裝成字串，再一次輸出。這題的目的，是讓你練習使用 ostringstream，把不同型別的資料依照指定格式串接成一段完整的字串。
+
+你必須讀入一位學生的姓名、一門課程名稱，以及分數。接著請使用字串資料流建立一段報告字串，最後再輸出這個字串。
+
+In a message generation system, the program first builds a report as a string and then prints it at once. The purpose of this problem is to practice using ostringstream to combine values of different types into one formatted string.
+
+You must read a student's name, a course name, and a score. Then build a report string using a string output stream, and finally print that string.
+
+
+Input
+輸入三行：
+第一行是學生姓名 name
+第二行是課程名稱 course
+第三行是整數分數 score
+
+The input contains three lines:
+The first line is the student name
+The second line is the course name
+The third line is the integer score
+
+
+Output
+輸出一行：
+[Report] name got score points in course.
+
+請依照格式完整輸出。
+
+Output one line:
+[Report] name got score points in course.
+
+Print the line exactly in the required format.
+
+
+Sample Input 1 
+Alice
+Programming I
+95
+Sample Output 1
+[Report] Alice got 95 points in Programming I.
+Sample Input 2 
+Bob
+Calculus
+88
+Sample Output 2
+[Report] Bob got 88 points in Calculus.
+Hint
+本題希望你先把內容寫進 ostringstream，再用 str() 取出結果字串。
+
+This problem expects you to write the content into an ostringstream first, then use str() to obtain the final string.
+
+-----
+
+Question 57: The CSV Score Record Parser
+Description
+在教務系統中，一筆成績資料可能先以單行字串形式儲存，例如：
+name,midterm,final,bonus
+
+程式需要先從這一行字串中拆出各欄位，再計算總成績並重新輸出整理後的報表。這題的重點，是讓你綜合使用字串資料流、getline 的分隔字元版本，以及格式化輸出。
+
+你必須讀入一整行 CSV 風格的資料，欄位以逗號分隔。欄位依序為：
+姓名、期中考分數、期末考分數、加分
+
+請使用字串資料流解析這一行資料，計算總分與平均值，並依照指定格式輸出。平均值固定輸出到小數點後兩位。
+
+In an academic system, one record may be stored as a single line of text in the following style:
+name,midterm,final,bonus
+
+The program must extract each field from the line, compute the final statistics, and print a formatted report. The purpose of this problem is to practice integrated use of string streams, getline with a custom delimiter, and formatted output.
+
+You must read one line of CSV-style data separated by commas. The fields are:
+name, midterm score, final score, and bonus
+
+Use string streams to parse the line, compute the total and the average, and print the report in the required format. The average must be printed with exactly two digits after the decimal point.
+
+
+Input
+輸入只有一行，格式如下：
+name,midterm,final,bonus
+
+其中：
+name 是不含逗號的姓名字串
+midterm, final, bonus 都是整數
+
+The input contains one line in the following format:
+name,midterm,final,bonus
+
+where:
+name is a string without commas
+midterm, final, and bonus are integers
+
+
+Output
+輸出三行：
+Name: name
+Total: X
+Average: Y
+
+其中：
+X = midterm + final + bonus
+Y = X / 3，固定輸出到小數點後兩位
+
+Output three lines:
+Name: name
+Total: X
+Average: Y
+
+where:
+X = midterm + final + bonus
+Y = X / 3, printed with exactly two digits after the decimal point
+
+
+Sample Input 1 
+Alice,80,90,5
+Sample Output 1
+Name: Alice
+Total: 175
+Average: 58.33
+Sample Input 2 
+Bob,70,85,10
+Sample Output 2
+Name: Bob
+Total: 165
+Average: 55.00
+Hint
+你可以先用 getline(cin, line) 讀入整行，再用 stringstream 與 getline(ss, token, ',') 逐欄拆解。
+
+You may first read the whole line with getline(cin, line), then use stringstream together with getline(ss, token, ',') to split the fields one by one.
+
+-----
+
+Question 58: Object Creation and Next Reference
+Description
+在 Java 這類語言中，程式建立出來的物件通常由執行環境自動管理。當某些物件已經無法再從程式手上的入口參考找到時，這些物件就不再有機會被使用，系統可以把它們清除，這個過程叫做垃圾回收，簡稱 GC。 在這組題目中，我們不實作真正的 JVM，而是用一個非常簡化的小型物件世界來理解 GC 的核心想法。
+
+本題是整組題目的第一步。先不要考慮 root，也不要執行 GC。你只需要建立一個 ObjectManager，用來保存所有已建立的物件。每個物件只有兩個狀態：自己的編號 id，以及 next 參考。next 表示這個物件目前指向哪一個下一個物件；若沒有指向任何物件，則 next 為 none。
+
+你必須使用 C++ 的物件導向方式完成本題。建議至少設計一個表示單一物件的類別，以及一個保存所有物件的管理者類別。所有 NEW、SETNEXT、CLEARNEXT、SHOW、COUNT 指令都應由管理者負責處理。
+
+In languages such as Java, objects created by a program are usually managed automatically by the runtime. When some objects can no longer be found from the references that the program still directly holds, those objects are no longer usable and may be removed. This process is called garbage collection, or GC. In this problem set, you will not implement a real JVM. Instead, you will use a very small simplified object world to understand the core idea of GC.
+
+This is the first step of the whole problem set. Do not consider roots yet, and do not run GC yet. You only need to build an ObjectManager that stores every created object. Each object has only two states: its own id and one next reference. The next reference means which object this object currently points to. If it points to nothing, then next is none.
+
+You must solve this problem using object-oriented programming in C++. It is recommended that you design at least one class for a single object and one manager class that stores all objects. All commands NEW, SETNEXT, CLEARNEXT, SHOW, and COUNT should be handled by the manager.
+
+
+Input
+第一行輸入一個整數 Q，表示操作數量。接下來 Q 行，每行是一個指令。指令可能為：NEW id、SETNEXT a b、CLEARNEXT a、SHOW id、COUNT。
+
+The first line contains an integer Q, the number of operations. The next Q lines each contain one command. A command is one of: NEW id, SETNEXT a b, CLEARNEXT a, SHOW id, COUNT.
+
+
+Output
+對每個指令輸出一行結果。若操作成功，依照題目格式輸出對應訊息。若 SETNEXT 或 CLEARNEXT 的目標物件不存在，輸出 Invalid operation。SHOW 不存在的物件時，輸出 Object [id] not found。
+
+Output one line for each command. If an operation succeeds, print the corresponding message in the required format. If SETNEXT or CLEARNEXT refers to a missing object, print Invalid operation. If SHOW refers to a missing object, print Object [id] not found.
+
+
+Sample Input 1 
+5
+NEW 1
+NEW 2
+SETNEXT 1 2
+SHOW 1
+COUNT
+Sample Output 1
+Created object 1
+Created object 2
+Object 1 now points to 2
+Object 1: next = 2
+Object count: 2
+Sample Input 2 
+5
+NEW 5
+SHOW 5
+CLEARNEXT 5
+SHOW 5
+COUNT
+Sample Output 2
+Created object 5
+Object 5: next = none
+Object 5 now points to none
+Object 5: next = none
+Object count: 1
+Sample Input 3 
+4
+NEW 3
+NEW 3
+SHOW 7
+COUNT
+Sample Output 3
+Created object 3
+Object 3 already exists
+Object 7 not found
+Object count: 1
+Hint
+本題的重點不是資料結構，而是先建立一個能保存所有物件的管理者。每個物件最多只會有一個 next 參考。
+
+The focus is not advanced data structures. First build a manager that stores all objects. Each object has at most one next reference.
+
+-----
+
+Question 59: Root Reference Manager
+Description
+在 Java 這類語言中，程式建立出來的物件通常由執行環境自動管理。當某些物件已經無法再從程式手上的入口參考找到時，這些物件就不再有機會被使用，系統可以把它們清除，這個過程叫做垃圾回收，簡稱 GC。 在這組題目中，我們不實作真正的 JVM，而是用一個非常簡化的小型物件世界來理解 GC 的核心想法。
+
+在 GC 的概念中，root 可以理解為程式目前仍直接持有的入口參考。只要系統還握有某個 root，之後就可能從這個入口一路找到更多物件。本題在前一題的基礎上，加入一個單一 root。這個 root 不是一般物件，而是管理者額外保存的一個直接入口。
+
+你需要支援設定 root、清除 root，以及查詢 root 目前指向哪一個物件。本題仍然不要求你找 reachable objects，也不要求你執行 GC；目標只是先理解 root 是什麼。
+
+In languages such as Java, objects created by a program are usually managed automatically by the runtime. When some objects can no longer be found from the references that the program still directly holds, those objects are no longer usable and may be removed. This process is called garbage collection, or GC. In this problem set, you will not implement a real JVM. Instead, you will use a very small simplified object world to understand the core idea of GC.
+
+In GC, a root can be understood as an entry reference that the program still directly holds. As long as the system still owns a root, it may continue to reach more objects from that entry. Based on Problem 1, this problem adds a single root. This root is not a normal object. It is an extra direct entry stored by the manager.
+
+You need to support setting the root, clearing the root, and checking which object the root currently points to. This problem still does not ask you to find reachable objects or run GC. The goal is only to understand what a root is.
+
+
+Input
+第一行輸入一個整數 Q。指令可能為：NEW id、SETNEXT a b、SETROOT id、CLEARROOT、SHOWROOT、SHOW id。
+
+The first line contains an integer Q. Commands are one of: NEW id, SETNEXT a b, SETROOT id, CLEARROOT, SHOWROOT, SHOW id.
+
+
+Output
+對每個指令輸出一行結果。若 SETROOT 指向不存在的物件，輸出 Invalid operation。SHOWROOT 時，若目前沒有 root，輸出 Root: none。
+
+Output one line for each command. If SETROOT refers to a missing object, print Invalid operation. For SHOWROOT, if there is currently no root, print Root: none.
+
+
+Sample Input 1 
+5
+NEW 1
+SETROOT 1
+SHOWROOT
+CLEARROOT
+SHOWROOT
+Sample Output 1
+Created object 1
+Root now points to 1
+Root: 1
+Root cleared
+Root: none
+Sample Input 2 
+6
+NEW 2
+NEW 3
+SETNEXT 2 3
+SETROOT 2
+SHOW 2
+SHOWROOT
+Sample Output 2
+Created object 2
+Created object 3
+Object 2 now points to 3
+Root now points to 2
+Object 2: next = 3
+Root: 2
+Hint
+root 可以想成程式還握在手上的第一個入口。本題只有一個 root，先不要把事情複雜化。
+
+You may think of the root as the first entry that the program still holds. There is only one root in this problem.
+
+-----
+
+Question 60: Reachable Object Finder
+Description
+在 Java 這類語言中，程式建立出來的物件通常由執行環境自動管理。當某些物件已經無法再從程式手上的入口參考找到時，這些物件就不再有機會被使用，系統可以把它們清除，這個過程叫做垃圾回收，簡稱 GC。 在這組題目中，我們不實作真正的 JVM，而是用一個非常簡化的小型物件世界來理解 GC 的核心想法。
+
+現在你已經有物件、next 參考，以及單一 root。本題要做的是找出哪些物件仍然可達。所謂可達，指的是從 root 開始，順著 next 一路走，能夠抵達的所有物件。這些物件代表系統目前仍然可能使用到，因此可以視為存活物件。
+
+本題不要求你刪除任何物件，只需要正確列出可達物件即可。若目前沒有 root，或 root 沒有指向任何存在中的物件，則沒有任何物件是可達的。
+
+In languages such as Java, objects created by a program are usually managed automatically by the runtime. When some objects can no longer be found from the references that the program still directly holds, those objects are no longer usable and may be removed. This process is called garbage collection, or GC. In this problem set, you will not implement a real JVM. Instead, you will use a very small simplified object world to understand the core idea of GC.
+
+Now you already have objects, next references, and one root. In this problem, you need to find which objects are still reachable. Reachable means all objects that can be reached by starting from the root and repeatedly following next. Such objects are still potentially usable by the system, so they may be considered alive.
+
+This problem does not ask you to delete anything yet. You only need to list the reachable objects correctly. If there is currently no root, or the root does not point to any existing object, then no object is reachable.
+
+
+Input
+第一行輸入整數 Q。指令可能為：NEW id、SETNEXT a b、SETROOT id、CLEARROOT、REACHABLE。
+
+The first line contains integer Q. Commands are one of: NEW id, SETNEXT a b, SETROOT id, CLEARROOT, REACHABLE.
+
+
+Output
+每個指令輸出一行結果。REACHABLE 指令要輸出 Reachable: 後接所有可達物件的 id，順序依照實際從 root 沿著 next 走訪的順序。若沒有可達物件，輸出 Reachable: none。
+
+Print one line for each command. For the REACHABLE command, output Reachable: followed by all reachable object ids in the order actually visited by following next from the root. If no object is reachable, output Reachable: none.
+
+
+Sample Input 1 
+7
+NEW 1
+NEW 2
+NEW 3
+SETNEXT 1 2
+SETNEXT 2 3
+SETROOT 1
+REACHABLE
+Sample Output 1
+Created object 1
+Created object 2
+Created object 3
+Object 1 now points to 2
+Object 2 now points to 3
+Root now points to 1
+Reachable: 1 2 3
+Sample Input 2 
+6
+NEW 5
+NEW 6
+SETROOT 6
+REACHABLE
+CLEARROOT
+REACHABLE
+Sample Output 2
+Created object 5
+Created object 6
+Root now points to 6
+Reachable: 6
+Root cleared
+Reachable: none
+Hint
+因為每個物件最多只有一個 next，所以本題可以沿著 next 一直往下走，不需要一般圖的複雜資料結構。
+
+Because each object has at most one next reference, you can simply keep following next. No complex general graph structure is needed here.
+-----
+
+Question 61: Simple Garbage Collection
+Description
+在 Java 這類語言中，程式建立出來的物件通常由執行環境自動管理。當某些物件已經無法再從程式手上的入口參考找到時，這些物件就不再有機會被使用，系統可以把它們清除，這個過程叫做垃圾回收，簡稱 GC。 在這組題目中，我們不實作真正的 JVM，而是用一個非常簡化的小型物件世界來理解 GC 的核心想法。
+
+本題正式進入簡化版垃圾回收。當你執行 GC 時，系統應先找出所有從 root 可達的物件，然後把其餘不可達的物件全部回收。所謂回收，就是把這些物件從管理者保存的物件容器中刪除。
+
+本題的 GC 採用最簡化的想法：可達的保留，不可達的刪除。你不需要處理真正 JVM 的細節，只要正確完成這個簡化模型即可。
+
+In languages such as Java, objects created by a program are usually managed automatically by the runtime. When some objects can no longer be found from the references that the program still directly holds, those objects are no longer usable and may be removed. This process is called garbage collection, or GC. In this problem set, you will not implement a real JVM. Instead, you will use a very small simplified object world to understand the core idea of GC.
+
+This problem enters simplified garbage collection. When you run GC, the system should first find all objects reachable from the root, and then collect every unreachable object. Here, collect simply means removing those objects from the manager's object container.
+
+The GC in this problem uses the most simplified idea: keep reachable objects and delete unreachable objects. You do not need to deal with real JVM details. You only need to complete this simplified model correctly.
+
+
+Input
+第一行輸入整數 Q。指令可能為：NEW id、SETNEXT a b、SETROOT id、CLEARROOT、GC、COUNT。
+
+The first line contains integer Q. Commands are one of: NEW id, SETNEXT a b, SETROOT id, CLEARROOT, GC, COUNT.
+
+
+Output
+GC 指令需輸出 Collected: 後接本次被回收的物件 id，並以遞增順序輸出。若沒有物件被回收，輸出 Collected: none。COUNT 指令輸出目前容器中仍存在的物件數量。
+
+For the GC command, output Collected: followed by the ids collected in this run, in increasing order. If no object is collected, output Collected: none. The COUNT command outputs how many objects still remain in the container.
+
+
+Sample Input 1 
+7
+NEW 1
+NEW 2
+NEW 3
+SETNEXT 1 2
+SETROOT 1
+GC
+COUNT
+Sample Output 1
+Created object 1
+Created object 2
+Created object 3
+Object 1 now points to 2
+Root now points to 1
+Collected: 3
+Object count: 2
+Sample Input 2 
+5
+NEW 5
+NEW 6
+SETROOT 5
+GC
+COUNT
+Sample Output 2
+Created object 5
+Created object 6
+Root now points to 5
+Collected: 6
+Object count: 1
+Hint
+本題的回收對象是管理者容器中所有目前存在的物件，而不是只有某條鏈上的物件。先找 reachable，再把其他物件刪掉。
+
+GC checks all objects currently stored in the manager. First find the reachable ones, then remove the others.
+
+-----
+
+Question 62: Mini Java-Style GC Simulator
+Description
+在 Java 這類語言中，程式建立出來的物件通常由執行環境自動管理。當某些物件已經無法再從程式手上的入口參考找到時，這些物件就不再有機會被使用，系統可以把它們清除，這個過程叫做垃圾回收，簡稱 GC。 在這組題目中，我們不實作真正的 JVM，而是用一個非常簡化的小型物件世界來理解 GC 的核心想法。
+
+本題是整組題目的完整模擬器。你需要整合前面所有功能：建立物件、設定 next、設定或清除 root、查詢物件是否存在、執行 GC，並輸出目前整個物件空間的狀態。
+
+這個簡化模型並不等於真正的 Java 虛擬機器，但它已經包含了 GC 最重要的核心觀念：系統保存了所有已建立的物件；root 是系統直接持有的入口；從 root 可達的物件仍然存活；不可達的物件可被回收。
+
+In languages such as Java, objects created by a program are usually managed automatically by the runtime. When some objects can no longer be found from the references that the program still directly holds, those objects are no longer usable and may be removed. This process is called garbage collection, or GC. In this problem set, you will not implement a real JVM. Instead, you will use a very small simplified object world to understand the core idea of GC.
+
+This problem is the full simulator of the whole problem set. You need to combine all previous features: create objects, set next, set or clear the root, check whether an object exists, run GC, and print the current state of the whole object space.
+
+This simplified model is not a real Java Virtual Machine, but it already contains the most important GC ideas: the system stores all created objects, the root is the direct entry held by the system, objects reachable from the root remain alive, and unreachable objects may be collected.
+
+
+Input
+第一行輸入整數 Q。指令可能為：NEW id、SETNEXT a b、CLEARNEXT a、SETROOT id、CLEARROOT、CHECK id、GC、STATUS。
+
+The first line contains integer Q. Commands are one of: NEW id, SETNEXT a b, CLEARNEXT a, SETROOT id, CLEARROOT, CHECK id, GC, STATUS.
+
+
+Output
+STATUS 時，第一行輸出目前所有存在的物件與其 next 狀態，格式為 Objects: id->next, id->next, ...，物件依 id 遞增排列；若沒有任何物件，輸出 Objects: none。第二行輸出 Root: x 或 Root: none。
+
+For STATUS, print the current existing objects and their next states in the format Objects: id->next, id->next, ..., sorted by increasing id. If there is no object, print Objects: none. On the second line, print Root: x or Root: none.
+
+
+Sample Input 1 
+7
+NEW 1
+NEW 2
+SETNEXT 1 2
+SETROOT 1
+STATUS
+GC
+STATUS
+Sample Output 1
+Created object 1
+Created object 2
+Object 1 now points to 2
+Root now points to 1
+Objects: 1->2, 2->none
+Root: 1
+Collected: none
+Objects: 1->2, 2->none
+Root: 1
+Sample Input 2 
+4
+NEW 5
+CHECK 5
+CHECK 7
+STATUS
+Sample Output 2
+Created object 5
+Object 5 exists
+Object 7 not found
+Objects: 5->none
+Root: none
+Hint
+這題其實就是把前面四題的功能整合在一起。若你的設計有一個清楚的 ObjectManager，整合會容易很多。
+
+This problem is simply the integration of the previous four problems. If you already have a clear ObjectManager design, integration will be much easier.
+
+Source
+OpenAI ChatGPT generated for course use
+
+-----
